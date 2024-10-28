@@ -8,6 +8,16 @@ on:
     branches:
       - main
 
+env:
+  NODE_ENV: test
+  DB_TYPE: mariadb
+  DB_HOST: localhost
+  DB_PORT: 3306
+  DB_USERNAME: root
+  DB_PASSWORD: root
+  DB_DATABASE: challenge
+  SECRET_KEY: challenge
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,15 +26,15 @@ jobs:
       mariadb:
         image: mariadb:latest
         env:
-          MYSQL_DATABASE: mydb
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MARIADB_ROOT_PASSWORD: root
+          MYSQL_DATABASE: challenge
         ports:
           - 3306:3306
-          
+
         options: >-
-          --health-cmd "mysqladmin ping -u root -prootpassword"
+          --health-cmd "mysqladmin ping -uroot -proot"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
