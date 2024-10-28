@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  challenger-db:
+    image: mariadb:latest
+    env_file:
+      - ./.env
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_PORT: ${DB_PORT}
+    volumes:
+      - challenge_mariadb:/var/lib/mysql
+    restart: "on-failure"
+
+  challenger-adminer:
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - challenger-db
+
+  challenger-app:
+    container_name: app-challenger
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=challenger-db
+    ports:
+      - 3000:3000
+    depends_on:
+      - challenger-db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: "on-failure"
+
+volumes:
+  challenge_mariadb:
