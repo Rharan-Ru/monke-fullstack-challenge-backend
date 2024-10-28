@@ -36,10 +36,11 @@ export class AddressService {
     return await this.addressRepository.save(address);
   }
 
-  async findAllForMapMarkers() {
+  async findAllForMapMarkers(userId: number) {
     return await this.addressRepository.find({
       select: ['id', 'latitude', 'longitude'],
       relations: ['client'],
+      where: { client: { user: { id: userId } } },
     });
   }
 

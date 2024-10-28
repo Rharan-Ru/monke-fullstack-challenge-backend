@@ -45,9 +45,10 @@ export class AddressController {
   }
 
   @Get('map-markers')
-  async findAllForMapMarkers() {
+  async findAllForMapMarkers(@Request() req: { user: IAuthRequestUser }) {
     try {
-      return await this.addressService.findAllForMapMarkers();
+      const userId = req.user.userId;
+      return await this.addressService.findAllForMapMarkers(+userId);
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }
