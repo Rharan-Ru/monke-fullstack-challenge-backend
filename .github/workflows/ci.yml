@@ -13,8 +13,8 @@ env:
   DB_TYPE: mariadb
   DB_HOST: localhost
   DB_PORT: 3306
-  DB_USERNAME: rootchallenge
-  DB_PASSWORD: rootchallenge
+  DB_USERNAME: root
+  DB_PASSWORD: root
   DB_DATABASE: challenge
   SECRET_KEY: challenge
 
