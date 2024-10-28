@@ -25,6 +25,7 @@ describe('AddressService', () => {
 
   const mockAddressCreateDTO: CreateAddressDto = {
     street: '1234 Main St',
+    weight: 123,
     number: '123',
     neighborhood: 'Downtown',
     complement: 'Apt 123',
@@ -39,6 +40,7 @@ describe('AddressService', () => {
     create: jest.fn().mockReturnValue(mockAddress),
     save: jest.fn().mockResolvedValue(mockAddress),
     find: jest.fn().mockResolvedValue([mockAddress]),
+    findAndCount: jest.fn().mockResolvedValue([[mockAddress], 1]),
     findOne: jest.fn().mockResolvedValue(mockAddress),
     update: jest.fn().mockResolvedValue({ affected: 1 }),
     delete: jest.fn().mockResolvedValue({ affected: 1 }),
@@ -78,11 +80,17 @@ describe('AddressService', () => {
 
   describe('findAll', () => {
     it('should return an array of addresss', async () => {
-      const result = await service.findAll(1);
-      expect(repository.find).toHaveBeenCalledWith({
+      const result = await service.findAll(1, 1);
+      expect(repository.findAndCount).toHaveBeenCalledWith({
         where: { client: { user: { id: 1 } } },
+        order: {
+          id: 'DESC',
+        },
+        relations: ['client'],
+        skip: 0,
+        take: 10,
       });
-      expect(result).toEqual([mockAddress]);
+      expect(result.address).toEqual([mockAddress]);
     });
   });
 

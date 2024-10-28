@@ -63,7 +63,7 @@ export class ClientService {
       throw new CustomError('Client not found', 404);
     }
 
-    if (!updateClientDto.address) {
+    if (updateClientDto.address) {
       await this.addressService.update(
         updateClientDto.address.id,
         updateClientDto.address,

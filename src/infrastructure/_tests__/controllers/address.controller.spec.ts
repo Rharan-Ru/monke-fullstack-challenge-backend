@@ -85,6 +85,7 @@ describe('Address (e2e)', () => {
     it('should create a new address', async () => {
       const address: CreateAddressDto = {
         city: 'City',
+        weight: 123,
         complement: 'Complement',
         country: 'Country',
         latitude: '1234',
@@ -116,15 +117,17 @@ describe('Address (e2e)', () => {
     it('should list all address', async () => {
       const response = await request(app.getHttpServer())
         .get('/address')
+        .query({ pageNumber: 1 })
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
 
-      expect(Array.isArray(response.body)).toBeTruthy();
+      expect(Array.isArray(response.body.address)).toBeTruthy();
     });
 
     it('should return a specific address by ID', async () => {
       const address: CreateAddressDto = {
         city: 'City',
+        weight: 123,
         complement: 'Complement',
         country: 'Country',
         latitude: '1234',
@@ -157,6 +160,7 @@ describe('Address (e2e)', () => {
     it('should update the data of a address', async () => {
       const address: CreateAddressDto = {
         city: 'City',
+        weight: 123,
         complement: 'Complement',
         country: 'Country',
         latitude: '1234',
@@ -195,6 +199,7 @@ describe('Address (e2e)', () => {
     it('should delete an existing address', async () => {
       const address: CreateAddressDto = {
         city: 'City',
+        weight: 123,
         complement: 'Complement',
         country: 'Country',
         latitude: '1234',

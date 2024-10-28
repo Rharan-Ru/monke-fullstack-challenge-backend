@@ -5,6 +5,8 @@ import { CreateClientDto } from '../../../application/client/dto/create-client.d
 import { Client } from '../../database/entities/client.entity';
 import { CustomError } from '../../../shared/utils/error.custom';
 import { Repository } from 'typeorm';
+import { AddressService } from '../../../application/address/address.service';
+import { Address } from '../../../infrastructure/database/entities/address.entity';
 
 describe('ClientService', () => {
   let service: ClientService;
@@ -20,23 +22,52 @@ describe('ClientService', () => {
     name: 'John Doe',
   };
 
+  const mockAddress = {
+    id: 1,
+    street: '1234 Main St',
+    number: '123',
+    neighborhood: 'Downtown',
+    complement: 'Apt 123',
+    city: 'Taubate',
+    state: 'SP',
+    country: 'Brasil',
+    latitude: '123456',
+    longitude: '654321',
+  };
+
   const mockRepository = {
     create: jest.fn().mockReturnValue(mockClient),
     save: jest.fn().mockResolvedValue(mockClient),
     find: jest.fn().mockResolvedValue([mockClient]),
     findOne: jest.fn().mockResolvedValue(mockClient),
+    findAndCount: jest.fn().mockResolvedValue([[mockClient], 1]),
     update: jest.fn().mockResolvedValue({ affected: 1 }),
     delete: jest.fn().mockResolvedValue({ affected: 1 }),
     preload: jest.fn().mockResolvedValue(mockClient),
+  };
+
+  const mockRepositoryAddress = {
+    create: jest.fn().mockReturnValue(mockAddress),
+    save: jest.fn().mockResolvedValue(mockAddress),
+    find: jest.fn().mockResolvedValue([mockAddress]),
+    findOne: jest.fn().mockResolvedValue(mockAddress),
+    update: jest.fn().mockResolvedValue({ affected: 1 }),
+    delete: jest.fn().mockResolvedValue({ affected: 1 }),
+    preload: jest.fn().mockResolvedValue(mockAddress),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ClientService,
+        AddressService,
         {
           provide: getRepositoryToken(Client),
           useValue: mockRepository,
+        },
+        {
+          provide: getRepositoryToken(Address),
+          useValue: mockRepositoryAddress,
         },
       ],
     }).compile();
@@ -51,7 +82,6 @@ describe('ClientService', () => {
 
   describe('create', () => {
     it('should create a new client', async () => {
-      (repository.findOne as jest.Mock).mockResolvedValueOnce(null);
       const result = await service.create(mockClientCreateDTO, 1);
       expect(repository.create).toHaveBeenCalledWith({
         ...mockClientCreateDTO,
