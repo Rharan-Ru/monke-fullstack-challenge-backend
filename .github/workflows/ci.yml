@@ -13,8 +13,8 @@ env:
   DB_TYPE: mariadb
   DB_HOST: localhost
   DB_PORT: 3306
-  DB_USERNAME: root
-  DB_PASSWORD: root
+  DB_USERNAME: rootchallenge
+  DB_PASSWORD: rootchallenge
   DB_DATABASE: challenge
   SECRET_KEY: challenge
 
@@ -26,15 +26,15 @@ jobs:
       mariadb:
         image: mariadb:latest
         env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-          MARIADB_ROOT_PASSWORD: root
+          MYSQL_USER: rootchallenge
+          MYSQL_PASSWORD: rootchallenge
+          MARIADB_ROOT_PASSWORD: rootchallenge
           MYSQL_DATABASE: challenge
         ports:
           - 3306:3306
 
         options: >-
-          --health-cmd "mysqladmin ping -uroot -proot"
+          --health-cmd "mysqladmin ping -urootchallenge -prootchallenge"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
