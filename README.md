@@ -110,11 +110,11 @@ Para ver a cobertura de testes utilize
 ```
 ## Screenshots
 
-![App Screenshot]()
+![App Screenshot](https://github.com/Rharan-Ru/monke-fullstack-challenge-backend/blob/main/ChallengeLogin.png)
 
-![App Screenshot]()
+![App Screenshot](https://github.com/Rharan-Ru/monke-fullstack-challenge-backend/blob/main/ChallengeMain.png)
 
-![App Screenshot]()
+![App Screenshot](https://github.com/Rharan-Ru/monke-fullstack-challenge-backend/blob/main/SwaggerUIChallenge.png)
 ## 🏗️ Arquitetura e Decisões Técnicas
 
 Este projeto foi estruturado e pensado para garantir escalabilidade, organização e facilidade de manutenção. Abaixo estão as principais decisões técnicas tomadas ao longo do desenvolvimento:
