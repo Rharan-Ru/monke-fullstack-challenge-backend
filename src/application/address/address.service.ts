@@ -71,7 +71,7 @@ export class AddressService {
       where: { id, client: { user: { id: userId } } },
     });
     if (!address) {
-      throw new CustomError('Address not found', 404);
+      throw new CustomError('Endereço não encontrado', 404);
     }
     return address;
   }
@@ -79,7 +79,7 @@ export class AddressService {
   async update(id: number, updateAddressDto: UpdateAddressDto, userId: number) {
     const address = await this.findOne(id, userId);
     if (!address) {
-      throw new CustomError('Address not found', 404);
+      throw new CustomError('Endereço não encontrado', 404);
     }
     return await this.addressRepository.update(id, updateAddressDto);
   }
@@ -87,7 +87,7 @@ export class AddressService {
   async remove(id: number, userId: number) {
     const address = await this.findOne(id, userId);
     if (!address) {
-      throw new CustomError('Address not found', 404);
+      throw new CustomError('Endereço não encontrado', 404);
     }
     return await this.addressRepository.delete(id);
   }

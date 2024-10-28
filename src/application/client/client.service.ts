@@ -52,7 +52,7 @@ export class ClientService {
       where: { id, user: { id: userId } },
     });
     if (!client) {
-      throw new CustomError('Client not found', 404);
+      throw new CustomError('Cliente não encontrado', 404);
     }
     return client;
   }
@@ -60,7 +60,7 @@ export class ClientService {
   async update(id: number, updateClientDto: UpdateClientDto, userId: number) {
     const client = await this.findOne(id, userId);
     if (!client) {
-      throw new CustomError('Client not found', 404);
+      throw new CustomError('Cliente não encontrado', 404);
     }
 
     if (updateClientDto.address) {
@@ -80,7 +80,7 @@ export class ClientService {
   async remove(id: number, userId: number) {
     const client = await this.findOne(id, userId);
     if (!client) {
-      throw new CustomError('User not found', 404);
+      throw new CustomError('Cliente não encontrado', 404);
     }
     return await this.clientRepository.delete(id);
   }

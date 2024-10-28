@@ -21,7 +21,7 @@ export class UserService {
       where: { email },
     });
     if (existingUser) {
-      throw new CustomError('User with this email already exists', 400);
+      throw new CustomError('Este email já está em uso', 400);
     }
     const user = this.userRepository.create(createUserDto);
     return this.userRepository.save(user);
@@ -34,7 +34,7 @@ export class UserService {
   async findOne(id: number) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
-      throw new CustomError('User not found', 404);
+      throw new CustomError('Usuário não encontrado', 404);
     }
     return user;
   }
@@ -48,7 +48,7 @@ export class UserService {
   async remove(id: number) {
     const user = await this.findOne(id);
     if (!user) {
-      throw new CustomError('User not found', 404);
+      throw new CustomError('Usuário não encontrado', 404);
     }
     return this.userRepository.delete(id);
   }

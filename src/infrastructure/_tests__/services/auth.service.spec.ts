@@ -78,7 +78,7 @@ describe('AuthService', () => {
       (repository.findOne as jest.Mock).mockResolvedValueOnce(null);
 
       await expect(service.validateUser(mockLoginDTO)).rejects.toThrow(
-        new CustomError('Invalid credentials', 401),
+        new CustomError('Credencial inválida', 401),
       );
     });
 

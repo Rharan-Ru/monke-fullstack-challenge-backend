@@ -16,7 +16,7 @@ export class AuthController {
     try {
       const user = await this.authService.validateUser(authLoginDto);
       if (!user) {
-        throw new CustomError('Invalid credentials', 401);
+        throw new CustomError('Credencial inválida', 401);
       }
       return this.authService.login(user);
     } catch (error) {

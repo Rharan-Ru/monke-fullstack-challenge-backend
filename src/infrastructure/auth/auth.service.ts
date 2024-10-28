@@ -33,7 +33,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new CustomError('Invalid credentials', 401);
+      throw new CustomError('Credencial inválida', 401);
     }
 
     const isPasswordValid = await bcrypt.compare(

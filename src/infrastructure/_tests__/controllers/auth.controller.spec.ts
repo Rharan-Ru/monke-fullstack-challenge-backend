@@ -94,7 +94,7 @@ describe('Auth (e2e)', () => {
         .send(invalidLoginDto)
         .expect(401);
 
-      expect(response.body.message).toBe('Invalid credentials');
+      expect(response.body.message).toBe('Credencial inválida');
     });
   });
 });
